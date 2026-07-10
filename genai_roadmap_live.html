@@ -112,7 +112,7 @@ async function loadFile(){
     }
     const data = await res.json();
     sha = data.sha;
-    rawText = atob(data.content.replace(/\n/g,''));
+    rawText = decodeURIComponent(escape(atob(data.content.replace(/\n/g,''))));
     lines = rawText.split('\n');
     parsePhases();
     lastError = null;
