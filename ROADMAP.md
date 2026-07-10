@@ -19,7 +19,7 @@ Edit this file directly to track progress: change `- [ ]` to `- [x]` for anythin
 - [x] Error handling (try/except)
 
 **Week 3**
-- [x] pip + installing packages, basic OOP (classes)
+- [ ] pip + installing packages, basic OOP (classes)
 - [ ] requests library — call a public API and print results
 - [ ] Start SQL: SELECT, WHERE, ORDER BY
 
@@ -99,4 +99,4 @@ Edit this file directly to track progress: change `- [ ]` to `- [x]` for anythin
 
 ---
 
-**Progress: 7 / 41 tasks (17%)**
+**Progress: 6 / 41 tasks (15%)**
