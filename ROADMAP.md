@@ -14,7 +14,7 @@ Edit this file directly to track progress: change `- [ ]` to `- [x]` for anythin
 - [x] Write 5 tiny scripts (temp converter, FizzBuzz, etc.)
 
 **Week 2**
-- [x] Functions, lists, dicts, string methods
+- [ ] Functions, lists, dicts, string methods
 - [ ] Read/write files (txt, csv)
 - [ ] Error handling (try/except)
 
@@ -99,4 +99,4 @@ Edit this file directly to track progress: change `- [ ]` to `- [x]` for anythin
 
 ---
 
-**Progress: 4 / 41 tasks (10%)**
+**Progress: 3 / 41 tasks (7%)**
