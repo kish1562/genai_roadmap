@@ -16,7 +16,7 @@ Edit this file directly to track progress: change `- [ ]` to `- [x]` for anythin
 **Week 2**
 - [x] Functions, lists, dicts, string methods
 - [x] Read/write files (txt, csv)
-- [ ] Error handling (try/except)
+- [x] Error handling (try/except)
 
 **Week 3**
 - [ ] pip + installing packages, basic OOP (classes)
@@ -99,4 +99,4 @@ Edit this file directly to track progress: change `- [ ]` to `- [x]` for anythin
 
 ---
 
-**Progress: 5 / 41 tasks (12%)**
+**Progress: 6 / 41 tasks (15%)**
