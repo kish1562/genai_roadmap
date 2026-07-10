@@ -15,7 +15,7 @@ Edit this file directly to track progress: change `- [ ]` to `- [x]` for anythin
 
 **Week 2**
 - [x] Functions, lists, dicts, string methods
-- [ ] Read/write files (txt, csv)
+- [x] Read/write files (txt, csv)
 - [ ] Error handling (try/except)
 
 **Week 3**
@@ -99,4 +99,4 @@ Edit this file directly to track progress: change `- [ ]` to `- [x]` for anythin
 
 ---
 
-**Progress: 4 / 41 tasks (10%)**
+**Progress: 5 / 41 tasks (12%)**
