@@ -1,0 +1,196 @@
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0D1117; --panel:#12161C; --panel-hi:#161B22; --border:#262C36;
+    --text:#C9D1D9; --text-dim:#7D8590; --amber:#E3B341; --green:#3FB950;
+  }
+  *{box-sizing:border-box;}
+  #root{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;
+    padding:28px 18px 60px;max-width:760px;margin:0 auto;}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;
+    color:var(--amber);text-transform:uppercase;}
+  h1{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:26px;margin:6px 0 4px;
+    color:#fff;letter-spacing:-0.01em;}
+  .sub{color:var(--text-dim);font-size:13.5px;line-height:1.5;}
+  .progress-wrap{margin:20px 0 4px;background:var(--panel-hi);border:1px solid var(--border);
+    border-radius:8px;padding:14px 16px;}
+  .progress-top{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;
+    font-size:12px;color:var(--text-dim);margin-bottom:8px;}
+  .progress-top .n{color:var(--amber);font-weight:700;}
+  .bar{height:8px;background:#1c222c;border-radius:4px;overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--amber));
+    border-radius:4px;transition:width .4s ease;width:0%;}
+  .phase{margin-top:22px;border:1px solid var(--border);border-radius:10px;
+    background:var(--panel);overflow:hidden;}
+  .phase-head{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;
+    user-select:none;}
+  .phase-head:hover{background:var(--panel-hi);}
+  .node{width:26px;height:26px;border-radius:6px;border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;
+    font-size:11px;font-weight:700;color:var(--text-dim);flex-shrink:0;transition:.2s;}
+  .node.done{background:var(--green);border-color:var(--green);color:#04170a;}
+  .phase-title{flex:1;}
+  .phase-title .name{font-weight:600;font-size:14.5px;color:#fff;}
+  .phase-title .weeks{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);
+    margin-top:2px;}
+  .chev{color:var(--text-dim);font-size:12px;transition:transform .2s;}
+  .chev.open{transform:rotate(90deg);}
+  .phase-body{display:none;border-top:1px solid var(--border);padding:14px 16px 18px;}
+  .phase-body.open{display:block;}
+  .week{margin-bottom:14px;}
+  .week:last-child{margin-bottom:0;}
+  .week-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);
+    text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+  .item{display:flex;align-items:flex-start;gap:9px;padding:5px 0;cursor:pointer;}
+  .box{width:16px;height:16px;border:1.5px solid var(--border);border-radius:4px;
+    margin-top:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+    transition:.15s;font-size:11px;color:#04170a;font-weight:700;}
+  .box.checked{background:var(--green);border-color:var(--green);}
+  .item-text{font-size:13.5px;line-height:1.45;}
+  .item.checked .item-text{color:var(--text-dim);text-decoration:line-through;}
+  .skip{margin-top:10px;padding:9px 11px;background:#1a1210;border:1px solid #3a2418;
+    border-radius:6px;font-size:12px;color:#d29a6b;font-family:'JetBrains Mono',monospace;}
+  .skip b{color:#e3b341;}
+  .reset{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);
+    background:none;border:1px solid var(--border);padding:6px 10px;border-radius:6px;
+    cursor:pointer;margin-top:24px;}
+  .reset:hover{color:var(--text);border-color:var(--text-dim);}
+  .loading{color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:12px;}
+</style>
+
+<div id="root"><div class="loading">loading roadmap...</div></div>
+
+<script>
+const PHASES = [
+  {
+    id:'p1', name:'Python + SQL Foundations', weeks:'Weeks 1–4',
+    weeksData:[
+      {label:'Week 1', items:['Install Python + set up VS Code','Variables, data types, control flow (if/else, loops)','Write 5 tiny scripts (temp converter, FizzBuzz, etc.)']},
+      {label:'Week 2', items:['Functions, lists, dicts, string methods','Read/write files (txt, csv)','Error handling (try/except)']},
+      {label:'Week 3', items:['pip + installing packages, basic OOP (classes)','requests library — call a public API and print results','Start SQL: SELECT, WHERE, ORDER BY']},
+      {label:'Week 4', items:['SQL: JOINs, GROUP BY, subqueries, window functions basics','Combine: pull data via API, save to file, query with SQL','Checkpoint: comfortable writing a script from scratch, no tutorial']},
+    ],
+    skip:'Django/Flask deep-dives, DSA/LeetCode grinding, DBA internals (indexing, replication).'
+  },
+  {
+    id:'p2', name:'AI Fundamentals', weeks:'Weeks 5–9',
+    weeksData:[
+      {label:'Week 5', items:['What LLMs are (high level, no deep math)','DeepLearning.AI short course: Prompt Engineering','Practice: 10 prompts solving real mini-tasks']},
+      {label:'Week 6', items:['OpenAI / Azure OpenAI API — first API call from Python','Understand tokens, temperature, system prompts','Build a tiny CLI chatbot (no framework)']},
+      {label:'Week 7', items:['Embeddings — what they are, why they matter','Vector DB basics — pick one (Chroma) and store/query vectors','Build: embed 10 sentences, find nearest neighbors']},
+      {label:'Week 8', items:['RAG — the concept end to end','LangChain basics: chains, retrievers, prompts','Wire together: load a doc → embed → retrieve → answer']},
+      {label:'Week 9', items:['Review + fill gaps','Checkpoint: can explain RAG out loud in 60 seconds, no notes']},
+    ],
+    skip:'Neural nets from scratch, calculus/linear algebra courses, PyTorch/TensorFlow, Kaggle.'
+  },
+  {
+    id:'p3', name:'Build — 3 Portfolio Projects', weeks:'Weeks 10–18',
+    weeksData:[
+      {label:'Project 1 (Weeks 10–12)', items:['RAG chatbot over your own documents (resume, notes, PDFs)','Simple UI (Streamlit is fine)','Push to GitHub with a real README']},
+      {label:'Project 2 (Weeks 13–15)', items:['AI app calling OpenAI/Azure OpenAI API + simple UI','Something people can actually use (not a toy demo)','Push to GitHub with a real README']},
+      {label:'Project 3 (Weeks 16–18)', items:['Data pipeline → LLM summary/insights project','Pull real data (CSV, API), transform it, feed to LLM','Push to GitHub with a real README']},
+    ],
+    skip:'Making them pixel-perfect. Working and on GitHub beats polished and unfinished.'
+  },
+  {
+    id:'p4', name:'Cert + Apply', weeks:'Weeks 14–24 (overlaps building)',
+    weeksData:[
+      {label:'Cert track', items:['Start AI-102 (Azure AI Engineer Associate) prep around week 14','Book the exam date — a deadline forces the study','Pass AI-102']},
+      {label:'Apply track (start week 18+)', items:['Resume tailored per role (Entry AI Engineer / GenAI Developer / Python Developer)','Apply to 5+ roles/week — title matters less than getting in','Link all 3 GitHub projects in every application']},
+    ],
+    skip:'AZ-900, DP-203, AWS certs, cert stacking. One cert. That\'s the plan.'
+  },
+];
+
+const TOTAL_ITEMS = PHASES.reduce((sum,p)=>sum+p.weeksData.reduce((s,w)=>s+w.items.length,0),0);
+let checked = {};
+let openPhase = 'p1';
+
+async function loadState(){
+  try{
+    const r = await window.storage.get('genai-roadmap-checked');
+    checked = r ? JSON.parse(r.value) : {};
+  }catch(e){ checked = {}; }
+  render();
+}
+
+async function saveState(){
+  try{ await window.storage.set('genai-roadmap-checked', JSON.stringify(checked)); }
+  catch(e){ console.error('save failed', e); }
+}
+
+function toggle(key){
+  checked[key] = !checked[key];
+  saveState();
+  render();
+}
+
+function togglePhase(id){
+  openPhase = (openPhase===id) ? null : id;
+  render();
+}
+
+async function resetAll(){
+  if(confirm('Reset all progress?')){
+    checked = {};
+    await saveState();
+    render();
+  }
+}
+
+function phaseDone(phase){
+  let allDone = true;
+  phase.weeksData.forEach((w,wi)=>w.items.forEach((_,ii)=>{
+    const key = phase.id+'-'+wi+'-'+ii;
+    if(!checked[key]) allDone = false;
+  }));
+  return allDone;
+}
+
+function render(){
+  const doneCount = Object.values(checked).filter(Boolean).length;
+  const pct = Math.round((doneCount/TOTAL_ITEMS)*100);
+
+  let html = '';
+  html += '<div class="eyebrow">roadmap // genai engineer</div>';
+  html += '<h1>0 &rarr; GenAI Engineer</h1>';
+  html += '<div class="sub">Four phases, ~24 weeks. Build order, not a reading list — each phase only unlocks what the next one needs.</div>';
+
+  html += '<div class="progress-wrap">';
+  html += '<div class="progress-top"><span>overall progress</span><span><span class="n">'+doneCount+'</span>/'+TOTAL_ITEMS+' tasks &middot; <span class="n">'+pct+'%</span></span></div>';
+  html += '<div class="bar"><div class="bar-fill" style="width:'+pct+'%"></div></div>';
+  html += '</div>';
+
+  PHASES.forEach((phase, pi) => {
+    const isOpen = openPhase === phase.id;
+    const done = phaseDone(phase);
+    html += '<div class="phase">';
+    html += '<div class="phase-head" onclick="togglePhase(\''+phase.id+'\')">';
+    html += '<div class="node'+(done?' done':'')+'">'+(done?'&check;':(pi+1))+'</div>';
+    html += '<div class="phase-title"><div class="name">'+phase.name+'</div><div class="weeks">'+phase.weeks+'</div></div>';
+    html += '<div class="chev'+(isOpen?' open':'')+'">&#9654;</div>';
+    html += '</div>';
+    html += '<div class="phase-body'+(isOpen?' open':'')+'">';
+    phase.weeksData.forEach((w, wi) => {
+      html += '<div class="week"><div class="week-label">'+w.label+'</div>';
+      w.items.forEach((item, ii) => {
+        const key = phase.id+'-'+wi+'-'+ii;
+        const isChecked = !!checked[key];
+        html += '<div class="item'+(isChecked?' checked':'')+'" onclick="toggle(\''+key+'\')">';
+        html += '<div class="box'+(isChecked?' checked':'')+'">'+(isChecked?'&check;':'')+'</div>';
+        html += '<div class="item-text">'+item+'</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    });
+    html += '<div class="skip"><b>skip:</b> '+phase.skip+'</div>';
+    html += '</div></div>';
+  });
+
+  html += '<button class="reset" onclick="resetAll()">reset all progress</button>';
+
+  document.getElementById('root').innerHTML = html;
+}
+
+loadState();
+</script>
